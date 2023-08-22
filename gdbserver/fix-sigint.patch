@@ -1,0 +1,11 @@
+--- gdbserver/linux-low.cc.orig
++++ gdbserver/linux-low.cc
+@@ -5469,6 +5469,8 @@
+      typed a ^C on the controlling terminal.  */
+   int res = ::kill (-signal_pid, SIGINT);
+   if (res == -1)
++    res = ::kill (signal_pid, SIGINT);
++  if (res == -1)
+     warning (_("Sending SIGINT to process group of pid %ld failed: %s"),
+ 	     signal_pid, safe_strerror (errno));
+ }
